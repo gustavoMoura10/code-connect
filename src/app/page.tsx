@@ -1,24 +1,35 @@
 import Link from "next/link";
 import CardPost from "../components/CardPost";
 import logger from "../logger";
-import { Post } from "../types/Post";
+import { Posts } from "../types/Posts";
 import styles from "./page.module.css";
 
 async function getPosts(
   page: number
-): Promise<{ data: Post[]; prev: number; next: number }> {
-  const response = await fetch(
-    `http://localhost:4000/posts?_page=${page}&_per_page=6`,
-    {
-      method: "GET",
+): Promise<{ data: Posts[]; prev: number; next: number }> {
+  let obj = {
+    data: [],
+    prev: 0,
+    next: 0,
+  };
+  try {
+    const response = await fetch(
+      `http://localhost:4000/posts?_page=${page}&_per_page=6`,
+      {
+        method: "GET",
+      }
+    );
+    if (!response.ok) {
+      logger.error("Failed to fetch posts");
+      //throw new Error("Failed to fetch posts");
     }
-  );
-  if (!response.ok) {
+    logger.info("Fetched posts");
+    obj = await response.json();
+  } catch (error) {
     logger.error("Failed to fetch posts");
-    throw new Error("Failed to fetch posts");
+    console.log(error);
   }
-  logger.info("Fetched posts");
-  return response.json();
+  return obj;
 }
 
 export default async function Home({

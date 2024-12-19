@@ -1,1 +1,12 @@
-@import "./globals.css"
+.main-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.pagination{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 75px;
+}

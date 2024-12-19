@@ -1,11 +1,11 @@
-import { Author } from "./Author";
+import { Authors } from "./Authors";
 
-export interface Post {
+export interface Posts {
   id: number;
   cover: string;
   title: string;
   slug: string;
   body: string;
   markdown: string;
-  author: Author;
+  author: Authors;
 }

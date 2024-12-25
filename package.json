@@ -8,6 +8,8 @@
     "typeorm:create": "./node_modules/typeorm/cli.js migration:create",
     "typeorm:run": "./node_modules/typeorm/cli.js -d src/config/database/data.source.ts migration:run",
     "typeorm:revert": "./node_modules/typeorm/cli.js -d src/config/database/data.source.ts migration:revert",
+    "typeorm:local": "npm run local ./node_modules/typeorm/cli.js",
+    "local": "DOTENV_CONFIG_PATH=./.env ts-node -P ./tsconfig.yarn.json -r dotenv/config",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
@@ -21,7 +23,6 @@
     "reflect-metadata": "^0.2.2",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
-    "ts-node": "^10.9.2",
     "typeorm": "^0.3.20",
     "winston": "^3.17.0"
   },

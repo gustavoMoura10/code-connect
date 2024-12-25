@@ -41,3 +41,4 @@ yarn-error.log*
 next-env.d.ts
 combined.log
 error.log
+docker-compose.yml

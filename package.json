@@ -9,7 +9,7 @@
     "typeorm:run": "yarn typeorm:local migration:run",
     "typeorm:revert": "yarn typeorm:local migration:revert",
     "typeorm:local": "yarn local ./node_modules/typeorm/cli.js -d src/config/database/data.source.ts",
-    "local": "DOTENV_CONFIG_PATH=./.env ts-node -P ./tsconfig.yarn.json -r dotenv/config",
+    "local": "DOTENV_CONFIG_PATH=./.env ts-node -P ./tsconfig.typeorm.json -r dotenv/config",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",

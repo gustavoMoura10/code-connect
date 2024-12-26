@@ -3,28 +3,30 @@ import CardPost from "../components/CardPost";
 import logger from "../logger";
 import { Posts } from "../types/Posts";
 import styles from "./page.module.css";
+import db from "../config/database/db";
 
 async function getPosts(
   page: number
 ): Promise<{ data: Posts[]; prev: number; next: number }> {
-  let obj = {
-    data: [],
+  const obj = {
+    data: [] as Posts[],
     prev: 0,
     next: 0,
   };
   try {
-    const response = await fetch(
-      `http://localhost:4000/posts?_page=${page}&_per_page=6`,
-      {
-        method: "GET",
-      }
-    );
-    if (!response.ok) {
-      logger.error("Failed to fetch posts");
-      //throw new Error("Failed to fetch posts");
-    }
+    console.log(page);
+    const posts = await db.post.findMany({
+      skip: (page - 1) * 10,
+      take: 10,
+      orderBy: {
+        id: "desc",
+      },
+    });
+    Object.assign(obj.data, posts);
+    obj.prev = page - 1;
+    obj.next = page + 1;
     logger.info("Fetched posts");
-    obj = await response.json();
+    //console.log(posts);
   } catch (error) {
     logger.error("Failed to fetch posts");
     console.log(error);

@@ -3,27 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "typeorm": "yarn typeorm:local",
-    "typeorm:generate": "yarn typeorm:local migration:generate -n",
-    "typeorm:create": "yarn typeorm:local migration:create -n",
-    "typeorm:run": "yarn typeorm:local migration:run",
-    "typeorm:revert": "yarn typeorm:local migration:revert",
-    "typeorm:local": "yarn local ./node_modules/typeorm/cli.js -d src/config/database/data.source.ts",
-    "local": "DOTENV_CONFIG_PATH=./.env ts-node -P ./tsconfig.typeorm.json -r dotenv/config",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
+  "prisma":{
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "dependencies": {
+    "@prisma/client": "6.1.0",
     "next": "15.1.0",
     "pg": "^8.13.1",
+    "prisma": "^6.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "reflect-metadata": "^0.2.2",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
-    "typeorm": "^0.3.20",
     "winston": "^3.17.0"
   },
   "devDependencies": {
@@ -33,7 +29,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.0",
-    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

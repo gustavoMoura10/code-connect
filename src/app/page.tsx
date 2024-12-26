@@ -4,7 +4,7 @@ import logger from "../logger";
 import { Posts } from "../types/Posts";
 import styles from "./page.module.css";
 import db from "../config/database/db";
-
+const LIMIT = 6;
 async function getPosts(
   page: number
 ): Promise<{ data: Posts[]; prev: number; next: number }> {
@@ -14,17 +14,20 @@ async function getPosts(
     next: 0,
   };
   try {
-    console.log(page);
     const posts = await db.post.findMany({
-      skip: (page - 1) * 10,
-      take: 10,
+      skip: (page - 1) * LIMIT,
+      take: LIMIT,
+      include: {
+        author: true,
+      },
       orderBy: {
         id: "desc",
       },
     });
+    const countPosts = await db.post.count();
     Object.assign(obj.data, posts);
-    obj.prev = page - 1;
-    obj.next = page + 1;
+    obj.prev = page > 1 ? page - 1 : 0;
+    obj.next = page < Math.ceil(countPosts / LIMIT) ? page + 1 : 0;
     logger.info("Fetched posts");
     //console.log(posts);
   } catch (error) {

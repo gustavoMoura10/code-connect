@@ -8,4 +8,5 @@ export interface Posts {
   body: string;
   markdown: string;
   author: Authors;
+  likes: number
 }

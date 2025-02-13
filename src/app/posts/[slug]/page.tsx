@@ -4,27 +4,31 @@ import { Posts } from "../../../types/Posts";
 import { remark } from "remark";
 import html from "remark-html";
 import styles from "./page.module.css";
+import db from '../../../config/database/db'
+import { redirect } from "next/navigation";
+
 async function getPost(slug: string): Promise<Posts> {
   let obj: Posts = {} as Posts;
   try {
-    const response = await fetch(`http://localhost:4000/posts?slug=${slug}`, {
-      method: "GET",
+    const post = await db.post.findFirst({
+      include: {
+        author: true
+      },
+      where: {
+        slug
+      }
     });
-    if (!response.ok) {
-      logger.error("Failed to fetch posts");
-      //throw new Error("Failed to fetch posts");
-    }
-    logger.info("Fetched posts");
-    const data = await response.json();
-    if (data.length === 0) {
-      return obj;
-    }
-    obj = data[0];
-    const processedContent = await remark().use(html).process(obj.markdown);
+    
+   if(!post) return null as unknown as Posts;
+    obj = post as unknown as Posts;
+    const processedContent = await remark().use(html).process(obj?.markdown);
     const content = processedContent.toString();
     obj.markdown = content;
   } catch (error) {
-    logger.error("Failed to fetch posts");
+    logger.error(`
+     Failed to obtain post with slug: ${slug}  
+     Error: ${error}
+    `);
     console.log(error);
   }
   return obj;
@@ -36,6 +40,9 @@ export default async function Post({
 }) {
   const { slug } = await params;
   const post = await getPost(slug || "");
+  if(!post) {
+    redirect('/not-found')
+  }
   return (
     <article className={styles.post}>
       <section className={styles.section}>

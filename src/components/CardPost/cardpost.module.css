@@ -1,5 +1,5 @@
 .card {
-  flex: 0 0 calc(50% - 8px);
+  flex: 0 0 calc(50% - 10px);
   /* Auto layout */
   display: flex;
   flex-direction: column;
@@ -48,7 +48,7 @@
   padding: 16px;
   gap: 16px;
 
-  height: 300px;
+  height: 370px;
 
   /* Cinza Escuro */
   background: #171d1f;
@@ -63,8 +63,15 @@
 }
 
 .footer {
-  align-self: flex-end;
-  justify-content: end;
+  
+  display: flex;
+  justify-content: space-between;
+}
+.footer p {
+  margin:0;
+  color: #888;
+  font-size: 16px;
+  text-align: center;
 }
 .link{
   text-decoration: none;

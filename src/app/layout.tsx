@@ -1,30 +1,35 @@
-import type { Metadata } from "next";
-import { Prompt } from "next/font/google";
-import "./globals.css";
-import Aside from "@/components/Aside";
-export const metadata: Metadata = {
-  title: "Code Connect",
-  description: "Development tools for Code Connect",
-};
+import { Prompt } from 'next/font/google'
+
+
+import './globals.css'
+import { SearchForm } from '@/components/SearchForm'
+import Aside from '@/components/Aside'
+
+export const metadata = {
+  title: 'Code Connect',
+  description: 'Uma rede social para devs!',
+}
+
 const prompt = Prompt({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  weight: ['400', '500', '600'],
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+export default function RootLayout({ children }:{children: React.ReactNode}) {
   return (
-    <html lang="en">
-      <body className={`${prompt.className}`}>
-        <div className="app-container">
-          <Aside />
-          {children}
+    <html lang="pt-br" className={prompt.className}>
+      <body>
+        <div className='app-container'>
+          <div>
+            <Aside />
+          </div>
+          <div className='main-content'>
+            <SearchForm />
+            {children}
+          </div>
         </div>
       </body>
     </html>
-  );
+  )
 }

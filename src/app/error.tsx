@@ -1,10 +1,10 @@
-"use client"; // Error components must be Client Components
+"use client"; 
 
 import Image from "next/image";
 import { useEffect } from "react";
 import styles from "./error.module.css";
 import Link from "next/link";
-import { ArrowBack } from "../components/ArrowBack";
+import { ArrowBack } from "../components/icons/ArrowBack";
 
 export default function Error({ error }: { error: Error }) {
   useEffect(() => {
